@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import os
 import numpy as np
 import math as m
 import matplotlib.pyplot as plt
@@ -303,16 +304,27 @@ if __name__ == '__main__':
 
     # 导航结果和导航误差
     navresult_filepath = '../dataset/KF_GINS_Navresult.nav'
+
     refresult_filepath = '../dataset/truth.nav'
+
+    navresult_filepath=os.path.abspath(os.path.join(os.path.dirname(__file__),navresult_filepath))
+    refresult_filepath=os.path.abspath(os.path.join(os.path.dirname(__file__),refresult_filepath))
+
     # 导航结果
-    plotNavresult(navresult_filepath)
+    if os.path.exists(navresult_filepath and refresult_filepath):
+        plotNavresult(navresult_filepath)
+    else:
+        print('File not found!')
     # 计算并绘制导航误差
     # plotNavError(navresult_filepath, refresult_filepath)
 
     # 估计的IMU误差
+    
     imuerr_filepath = '../dataset/KF_GINS_IMU_ERR.txt'
+    imuerr_filepath = os.path.abspath(os.path.join(os.path.dirname(__file__),imuerr_filepath))
     # plotIMUerror(imuerr_filepath)
 
     # 估计的导航状态标准差和IMU误差标准差
     std_filepath = '../dataset/KF_GINS_STD.txt'
+    std_filepath = os.path.abspath(os.path.join(os.path.dirname(__file__),std_filepath))
     # plotSTD(std_filepath)
